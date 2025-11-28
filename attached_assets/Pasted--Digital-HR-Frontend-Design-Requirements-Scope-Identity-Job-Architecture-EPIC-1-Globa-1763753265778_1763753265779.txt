@@ -1,0 +1,334 @@
+# Digital HR – Frontend Design Requirements  
+## Scope: Identity & Job Architecture (EPIC 1) + Global UX Patterns
+
+## 1. UX Goals
+
+1. Provide a **single pane of glass** for understanding any Digital Worker (Agent): who it is, where it sits, what it can do, and who owns it.
+2. Make **governance and risk obvious at a glance** (risk tiers, autonomy, boundaries, owners).
+3. Support **fast navigation** from a portfolio view (all workers) into deep detail (identity card, relationships, org placement).
+4. Be **spec-driven and extension-friendly** so new attributes from other epics can plug into the same UI patterns.
+5. Feel like an **HR system for Digital Workers**, not a dev or ops console.
+
+---
+
+## 2. Primary Users & Context
+
+### 2.1 Personas
+
+- **Digital HR Admin**
+  - Creates and updates Digital Worker records.
+  - Maintains job families, BU mappings, and identity fields.
+
+- **Product Owner (PO)**
+  - Wants quick understanding of “their” workers.
+  - Needs to see purpose, scope, incidents, and governance expectations.
+
+- **Risk / Compliance**
+  - Needs visibility into risk tiers, boundaries, RACI, and ownership.
+
+- **Architecture / Platform**
+  - Needs relationship graphs, process mappings, and org alignment.
+
+- **Leadership / Exec**
+  - Needs high-level overview and drill-down, not raw detail.
+
+### 2.2 Usage Scenarios (High-Level)
+
+- “I need to see **all Digital Workers** and quickly filter by BU, process, or risk tier.”
+- “I want to click into **one worker** and see its **identity card**.”
+- “I need to understand **who owns this worker** and **what processes it touches**.”
+- “I need to see **relationships** between workers and **org placement**.”
+
+---
+
+## 3. High-Level Information Architecture
+
+### 3.1 Main Navigation (for the Digital HR app/module)
+
+Top-level nav (could be left sidebar or top tabs):
+
+- **Digital Workers** (directory + filters)
+- **Org & Ownership**  
+- **Relationships** (Graph)  
+- **Job Families & Taxonomy**  
+- *(Other epics later: Governance, Planning, Value, etc.)*
+
+For EPIC 1, only the first four need to be fully fleshed out.
+
+---
+
+## 4. Screen 1 – Digital Worker Directory
+
+### 4.1 Purpose
+
+Provide a **table or card grid** listing all Digital Workers with key identity and governance attributes, optimized for filtering and selection, not deep editing.
+
+### 4.2 Key Content & Data
+
+Each row/card should display:
+
+- Digital Worker Name
+- Job Family
+- Business Unit / Department
+- Primary Process (first associated process)
+- Risk Tier (badge)
+- Autonomy Level (badge: Observe / Suggest / Execute / Orchestrate)
+- Primary Owner (Product Owner)
+- Status (Active / Paused / Retired / Stage)
+
+### 4.3 Layout Requirements
+
+- **Search bar** at top (name, ID, free text).
+- **Filter panel** (left, collapsible or top filter row):
+  - BU
+  - Department / Team
+  - Job Family
+  - Risk Tier
+  - Autonomy Level
+  - Status
+- **Main list area**:
+  - Sortable columns
+  - Sticky header row
+  - Pagination or infinite scroll (configurable).
+
+### 4.4 Interactions
+
+- Clicking a row opens **Digital Worker Identity Card** in:
+  - either a **full-page detail view**, or
+  - a **right-side slide-over panel** (recommended for speed).
+- Bulk selection actions (future-friendly):
+  - bulk edit BU, Owner, or Status (optional for v1 but design should allow room).
+- Hover states:
+  - show quick “chips” for RACI or risk explanation on hover over badges.
+
+### 4.5 States
+
+- **Empty state** – no Digital Workers yet:
+  - Message + CTA: “Create your first Digital Worker identity”.
+- **No results state** – filters yield nothing:
+  - Clear explanation and “Reset filters” button.
+- **Loading state** – skeleton table rows.
+
+---
+
+## 5. Screen 2 – Digital Worker Identity Card (Detail View)
+
+### 5.1 Purpose
+
+Act as the **single source of truth** for a Digital Worker’s identity, suitable for both quick review and governance discussions.
+
+### 5.2 Layout
+
+Use a **two-column layout** on desktop, single-column on mobile:
+
+- **Left Column: Core Identity**
+  - Name
+  - Worker ID
+  - Status
+  - Job Family
+  - BU / Department / Team
+  - Primary Process(es)
+  - Autonomy Level (badge + tiny description)
+  - Risk Tier (badge + tooltip)
+  - Primary Owner
+  - Technical Owner
+  - Governance Owner(s) (Risk / Compliance / SRE)
+  - RACI (small inline component)
+
+- **Right Column: Context & Governance**
+  - Purpose Statement & Boundaries (readable paragraph + bullets)
+  - Capabilities (chip list)
+  - Prohibited Tasks / Out-of-Scope (highlighted)
+  - RACI (expanded, if not shown succinctly on left)
+  - Quick links to:
+    - Org Chart view (for this worker)
+    - Relationships graph (centered on this worker)
+    - Version / History timeline
+
+Tabs within the detail view (below the header) can be used:
+
+- **Overview** (default – all identity content summarized)
+- **Relationships**
+- **History**
+
+### 5.3 Components / UI Elements
+
+- **Badges**:
+  - Risk Tier (color-coded, but still accessible)
+  - Autonomy Level
+  - Status
+- **Chips / Tags**:
+  - Capabilities
+  - Processes
+- **RACI mini-table**:
+  - Roles on rows, people/teams in cells.
+
+### 5.4 Interactions
+
+- **Edit vs View mode**:
+  - Default is **view-only** with an “Edit Identity” button (top-right).
+  - Edit identity opens an **Edit panel / screen** with form fields grouped logically.
+- **Deep-link capability**:
+  - Each section (Purpose, Capabilities, RACI) should have a unique anchor link for sharing.
+- **Jump links**:
+  - Top-of-page shortcuts to Purpose, Capabilities, RACI, Ownership, etc.
+
+### 5.5 States
+
+- **Read-only** state for users without edit permissions.
+- **Warning banners**:
+  - If worker is in probation, paused, or flagged as high-risk.
+
+---
+
+## 6. Screen 3 – Create / Edit Digital Worker Identity
+
+### 6.1 Purpose
+
+Provide a **guided form** for onboarding or editing a Digital Worker’s identity. Must feel structured and guard-rail-heavy.
+
+### 6.2 Form Sections (Logical Grouping)
+
+1. **Basic Info**
+   - Name
+   - Description (short)
+   - Worker ID (auto-generated or provided)
+
+2. **Job & Org**
+   - Job Family (dropdown)
+   - BU / Department / Team (cascading dropdowns)
+   - Primary Process(es) (multi-select, searchable)
+
+3. **Governance & Autonomy**
+   - Risk Tier (suggested default from job family; can be overridden with explanation)
+   - Autonomy Level (dropdown)
+   - Status (Stage / Active / Paused / Retired)
+
+4. **Purpose & Boundaries**
+   - Purpose Statement (rich text or multi-line)
+   - In-Scope Tasks (tag list or free-text bullets)
+   - Out-of-Scope / Prohibited Tasks (distinct field, styled as warnings)
+   - Escalation Conditions (multi-select: policy failure, low confidence, etc.)
+   - Escalation Recipients (owners/roles)
+
+5. **Ownership & RACI**
+   - Primary Owner (user/team selector)
+   - Technical Owner
+   - Governance Owners (Risk, Compliance, SRE)
+   - RACI matrix:
+     - Roles vs stakeholders (R/A/C/I selectors)
+
+6. **Capability Snapshot**
+   - Capability tags (selected from controlled vocabulary; optional free-tag for future refinement).
+
+### 6.3 Interactions & Validation
+
+- Progressive validation as user moves through sections.
+- Required fields clearly marked and validated on submit.
+- If risk tier is changed:
+  - require reason field.
+- If autonomy level > a configured threshold:
+  - require link to governance approval (as a reference field).
+
+### 6.4 UX Guidance
+
+- Use **stepper/wizard pattern** for complex onboarding, but allow **single-page scroll** as an alternative (designer’s choice, but requirements must allow either).
+- Show a **summary panel** on the right (or top) summarizing key fields as they are filled.
+
+---
+
+## 7. Screen 4 – Org Chart View (Digital Workers in Org Context)
+
+### 7.1 Purpose
+
+Show how Digital Workers are placed in the human org structure, to support HR / governance discussions.
+
+### 7.2 Layout
+
+- Central node: **Digital Worker** (when accessed from identity card).
+- Above: primary human manager (Product Owner).
+- Lateral: other human/digital nodes that share ownership (Risk, Compliance roles).
+- Global view: option to switch to a “full org chart mode” where multiple workers appear under BUs and teams.
+
+### 7.3 Interactions
+
+- Click a node → view sidebar with summary (name, role, BU, risk tier).
+- Hover → tooltips with role and contact.
+- Filter by:
+  - BU
+  - Job Family
+  - Risk Tier.
+
+---
+
+## 8. Screen 5 – Relationships Graph (Identity Linking)
+
+### 8.1 Purpose
+
+Visualize dependencies, parent/child, and peer relationships between Agents.
+
+### 8.2 Requirements
+
+- Centered on a selected Digital Worker.
+- Show:
+  - Parent (if any)
+  - Children (sub-workers / specialized workers)
+  - Peers (workers in same process / job family)
+  - Dependencies (other workers it delegates to or relies on).
+
+### 8.3 Interactions
+
+- Zoom / pan.
+- Click any node to:
+  - open mini-card (quick info).
+  - navigate to full identity view.
+
+---
+
+## 9. Global UI Patterns & Design Requirements
+
+### 9.1 Visual Language
+
+- Treat Digital Workers like **people** in terms of information density, but **systems** in terms of emphasis on risk & capabilities.
+- Use consistent **badge colors** for:
+  - Risk tiers (with accessible shapes/icons, not just color).
+  - Autonomy levels.
+  - Status.
+
+### 9.2 Accessibility
+
+- All icons and badges must have accessible text equivalents.
+- Color usage must pass contrast requirements.
+- All interactions must be keyboard accessible.
+
+### 9.3 Responsiveness
+
+- Directory and identity views must be usable on:
+  - Desktop (primary)
+  - Laptop
+  - Tablet (secondary)
+- Mobile may provide read-only access for identity cards (optional for v1, but do not design in a way that makes mobile impossible later).
+
+### 9.4 Integration Considerations
+
+- The UI should assume integration with:
+  - Registry / Catalog APIs
+  - Org / directory service for user lookups
+  - Governance logs for version/history
+- All views must support **link-based deep linking** (for use in Teams, email, etc.).
+
+---
+
+## 10. Non-Functional UX Requirements
+
+- Identity search and browse must feel **snappy** (< 1–2s perceived response).
+- Views must make it **immediately obvious**:
+  - What a worker does
+  - Where it sits
+  - Who owns it
+  - How risky it is
+
+- UX must support **review conversations**:
+  - POs and Risk reviewing identity together
+  - Execs reviewing a portfolio of Agents during governance boards.
+

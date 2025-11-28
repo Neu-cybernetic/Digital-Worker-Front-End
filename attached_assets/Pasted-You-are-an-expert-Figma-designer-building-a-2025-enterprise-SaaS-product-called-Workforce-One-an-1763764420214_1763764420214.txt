@@ -1,0 +1,118 @@
+You are an expert Figma designer building a 2025 enterprise SaaS product called "Workforce One" – an HRIS for Digital Workers (AI agents).
+
+Create a complete, production-ready Figma file with the following requirements:
+
+File Setup
+- Page name: Workforce One – Phase 1 Prototype
+- Design system: Light mode only (prepare variables for future dark mode)
+- Typography: Inter (Google Font) – use Text Styles for H1 32px, H2 24px, H3 20px, Body 14px, Caption 12px
+- Corner radius: 12px primary, 8px secondary
+- Spacing: 8pt grid
+- Color system (create Color Styles + Variables):
+  - Risk: Critical #B91C1C, High #DC2626, Medium #F97316, Low #22C55E
+  - Autonomy: Observe #6B7280, Suggest #8B5CF6, Execute #3B82F6, Orchestrate #C084FC
+  - Positive: #22C55E (green), Warning: #F59, Negative: #EF4444
+  - Background: #FFFFFF, Surface: #F9FAFB, Border: #E5E7EB
+- Avatar style: Use DiceBear identicon or avatar style with seed = worker name + job family color seed, rounded 16px
+
+Master Components (create these first, publish as library)
+1. Badge / Risk (with shape fallback for accessibility: circle/critical, triangle/high, square/medium, hexagon/low)
+2. Badge / Autonomy (icons: eye/observe, lightbulb/suggest, rocket/execute, crown/orchestrate)
+3. Badge / Status (Active, Paused, Probation, Retired)
+4. Trust & Control Panel (right rail component, 320px wide, sticky)
+5. Command Bar (Cmd+K style)
+6. Card / Worker Card (with avatar, name, job family, BU, risk, autonomy, owner, status)
+7. RACI Matrix (compact + expanded)
+8. Strength Radar Chart (use vector or placeholder with 6 axes)
+9. Tabs component
+10. Button variants (Primary, Secondary, Destructive, Outline)
+
+Pages & Artboards (desktop 1440px width frames)
+
+Page 1: Home – Governance & Value Cockpit
+Frame 1: Governance & Value Cockpit – Executive View
+- Top summary bar: Total Digital Workers: 612 ↑18% MoM | Critical: 8 | High: 46 | Avg SLO: 92.4 | Value/Risk: 7.1 | Avg HX: 88.7
+- Four large tiles:
+  1. Risk Exposure Heatmap (grid by BU with color intensity)
+  2. Value Leaders (top 10 worker cards in grid)
+  3. Trust & Adoption (HX score by BU + line chart)
+  4. Alerts & Actions (list: Probation ending, Reviews due, Overrides spiking)
+- Permanent right rail: Trust & Control Panel (example worker: Luna – Claims Agent, Critical, Orchestrate, Probation, SLO 94, Value/Risk 8.7, HX 91, Trust ↑12%)
+
+Frame 2–4: Cockpit variants (Risk Owner view, Product Owner view, empty state)
+
+Page 2: Digital Workers Directory
+- Top: Command Bar + Filter chips
+- Default: Card grid (4 columns, 24px gutter)
+- Worker card content:
+  - Large avatar top-left
+  - Name + Worker ID
+  - Job Family badge
+  - BU / Department
+  - Risk badge + Autonomy badge
+  - Primary Owner avatar + name
+  - Status badge (Probation → orange banner)
+- Hover state on card
+- Table view (toggle button)
+- Empty state + No results state
+
+Page 3: Worker Profile (Full Profile Page – 8 tabs)
+Create 8 separate frames (one per tab) + header that is duplicated:
+Header (fixed):
+- Large avatar left
+- Worker name + version
+- Badge bar (Critical Risk, Orchestrate, Probation, SLO 94, Value/Risk 8.7, HX 91, Trust ↑)
+- Buttons: Edit, Pause, Kill Switch (big red)
+
+Tabs:
+1. Overview – two columns
+   Left: Job Family, BU/Dept/Team, Primary Process(es), Capabilities (chips), Purpose Statement, Boundaries (red highlighted prohibited), RACI compact
+   Right: Ownership table, Escalation rules
+2. Performance – SLO Score big number, Strength Radar chart, Consistency Index gauge, Incidents list
+3. Value – Outcome Credits timeline chart, value attribution by process
+4. Human Impact – Override rate line chart, HX feedback quotes
+5. Relationships – Dual-mode toggle: Hierarchy (org tree) vs Dependency (force graph with colored edges)
+6. Governance – Risk history timeline, Policy packs applied, Reviews due countdown, Guardrails list
+7. History – Full version timeline with capability changes
+8. Collaboration – Delegation map + behavior drift alerts
+
+Permanent Trust & Control Panel on every profile page (same component)
+
+Page 4: Onboarding Wizard (8-step, horizontal progress ring top)
+- Step 1: Basic Info + Avatar (auto-generate preview)
+- Step 2: Job Family → auto-prefill risk/autonomy
+- Step 3: Business Unit (primary + secondary)
+- Step 4: Purpose & Boundaries (rich text + red prohibited box)
+- Step 5: Capabilities + Process mapping
+- Step 6: Ownership & RACI (drag people)
+- Step 7: Governance & Guardrails (risk override with justification)
+- Step 8: Review & Submit → live-updating Trust & Control Panel preview on right
+- Conditional: High/Critical → "Submit for Approval" instead of "Create"
+
+Mobile versions (separate page, 375px frames)
+- Cockpit mobile
+- Directory mobile (vertical stack)
+- Profile mobile (accordion instead of tabs, Trust Panel as bottom sheet)
+
+Interactions (add prototypes)
+- Click worker card → go to Profile Overview
+- Tab clicks switch frames
+- Wizard next/back + final success → new card appears in directory
+- Command Bar searchable
+- Hover states, badge tooltips, etc.
+
+Use auto-layout everywhere, components for everything, variables for colors/text/colors. Make it feel premium 2025 enterprise (Rippling + Lattice + Linear).
+
+Final file must be fully componentized, clean, and ready for developer handoff.
+
+Use these free/community kits (just search in Figma Community and click "Add to library"):
+
+shadcn/ui – Figma Kit (best match – exact look we're using)
+→ https://www.figma.com/community/file/1337469101590004668/shadcn-ui-figma-kit
+Untitled UI PRO (most popular enterprise kit in 2025, has perfect cards, tables, badges, radar charts)
+→ https://www.untitledui.com/figma
+Radix UI Figma Kit (for perfect accessible primitives matching shadcn)
+→ Community search "Radix UI"
+Apple Design Resources (for iOS feel if you want) or Fluent UI System (Microsoft)
+Lucid Chart or Whimsical style for graphs/org charts if you want pre-built radar/force graphs
+DiceBear Avatars plugin (install plugin → generates identicons on the fly)
