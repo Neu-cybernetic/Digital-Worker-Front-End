@@ -1,0 +1,203 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 4px;
+  --radius-xl: 8px;
+  
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+  
+  --font-sans: 'IBM Plex Sans', sans-serif;
+  --font-heading: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+/* LIGHT MODE - Carbon Design System (White Theme) */
+:root {
+  --background: 0 0% 96%; /* Gray 10 #f4f4f4 - common Carbon background */
+  --foreground: 0 0% 9%; /* Gray 100 #161616 */
+
+  --card: 0 0% 100%; /* White */
+  --card-foreground: 0 0% 9%; /* Gray 100 */
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 9%;
+
+  --primary: 219 97% 53%; /* IBM Blue 60 #0f62fe */
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 0 0% 22%; /* Gray 80 #393939 */
+  --secondary-foreground: 0 0% 100%;
+
+  --muted: 0 0% 96%; /* Gray 10 #f4f4f4 */
+  --muted-foreground: 0 0% 32%; /* Gray 60 #525252 */
+
+  --accent: 0 0% 90%; /* Gray 20 #e0e0e0 (Hover state usually) */
+  --accent-foreground: 0 0% 9%;
+
+  --destructive: 339 87% 53%; /* Red 60 #da1e28 */
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 0 0% 88%; /* Gray 20 #e0e0e0 */
+  --input: 0 0% 88%;
+  --ring: 219 97% 53%;
+
+  --radius: 0px; /* Sharp corners */
+
+  --sidebar: 0 0% 9% ; /* Gray 100 #161616 (Dark Sidebar usually for Carbon) or White */
+  /* Using Gray 90 for Sidebar to give contrast */
+  --sidebar: 0 0% 96%; /* Stick to light theme consistency: Gray 10 */
+  --sidebar-foreground: 0 0% 9%;
+  --sidebar-primary: 219 97% 53%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 0 0% 90%;
+  --sidebar-accent-foreground: 0 0% 9%;
+  --sidebar-border: 0 0% 88%;
+  --sidebar-ring: 219 97% 53%;
+  
+  /* Risk Colors - Carbon Status Colors */
+  --risk-low: 145 65% 39%; /* Green 60 #198038 */
+  --risk-medium: 42 87% 55%; /* Yellow 50 (Warning) #f1c21b - adjusted for text contrast */
+  --risk-high: 23 89% 53%; /* Orange 50 #ff832b - adjusted */
+  --risk-critical: 339 87% 53%; /* Red 60 #da1e28 */
+  
+  /* Autonomy Colors */
+  --autonomy-observe: 0 0% 40%; /* Gray 50 */
+  --autonomy-suggest: 219 97% 53%; /* Blue 60 */
+  --autonomy-execute: 264 56% 60%; /* Purple 60 #8a3ffc */
+  --autonomy-orchestrate: 319 62% 59%; /* Magenta 60 #d12771 */
+
+  /* Status Colors */
+  --status-positive: 145 65% 39%; /* Green 60 */
+  --status-warning: 42 87% 55%; /* Yellow */
+  --status-negative: 339 87% 53%; /* Red 60 */
+}
+
+.dark {
+  --background: 0 0% 9%; /* Gray 100 #161616 */
+  --foreground: 0 0% 96%; /* Gray 10 #f4f4f4 */
+
+  --card: 0 0% 15%; /* Gray 90 #262626 */
+  --card-foreground: 0 0% 96%;
+
+  --popover: 0 0% 15%;
+  --popover-foreground: 0 0% 96%;
+
+  --primary: 218 100% 65%; /* Blue 50 #4589ff */
+  --primary-foreground: 0 0% 9%;
+
+  --secondary: 0 0% 40%; /* Gray 60 */
+  --secondary-foreground: 0 0% 100%;
+
+  --muted: 0 0% 22%; /* Gray 80 */
+  --muted-foreground: 0 0% 64%; /* Gray 50 */
+
+  --accent: 0 0% 22%; /* Gray 80 */
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 341 100% 67%; /* Red 50 #fa4d56 */
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 0 0% 32%; /* Gray 70 */
+  --input: 0 0% 32%;
+  --ring: 218 100% 65%;
+  
+  --sidebar: 0 0% 9%;
+  --sidebar-foreground: 0 0% 96%;
+  --sidebar-primary: 218 100% 65%;
+  --sidebar-primary-foreground: 0 0% 9%;
+  --sidebar-accent: 0 0% 22%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 0 0% 32%;
+  --sidebar-ring: 218 100% 65%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight font-normal; /* Carbon headings are often normal weight */
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  
+  /* Custom Badges - Carbon Tag Style (Sharp, high contrast) */
+  .badge-risk-low {
+    @apply bg-[#defbe6] text-[#198038] border-transparent dark:bg-[#198038] dark:text-white;
+  }
+  .badge-risk-medium {
+    @apply bg-[#fcf4d6] text-[#8a6a00] border-transparent dark:bg-[#f1c21b] dark:text-black; /* Yellow Warning */
+  }
+  .badge-risk-high {
+    @apply bg-[#ffe6e6] text-[#da1e28] border-transparent dark:bg-[#da1e28] dark:text-white; /* Red Critical for High/Critical in Carbon usually */
+  }
+  .badge-risk-critical {
+    @apply bg-[#fff1f1] text-[#750e13] border-transparent dark:bg-[#750e13] dark:text-white; /* Darker Red */
+  }
+
+  .badge-autonomy-observe {
+    @apply bg-[#e0e0e0] text-[#161616] border-transparent dark:bg-[#525252] dark:text-white; /* Gray */
+  }
+  .badge-autonomy-suggest {
+    @apply bg-[#d0e2ff] text-[#0043ce] border-transparent dark:bg-[#0f62fe] dark:text-white; /* Blue */
+  }
+  .badge-autonomy-execute {
+    @apply bg-[#e8daff] text-[#6929c4] border-transparent dark:bg-[#8a3ffc] dark:text-white; /* Purple */
+  }
+  .badge-autonomy-orchestrate {
+    @apply bg-[#ffd6e8] text-[#9f1853] border-transparent dark:bg-[#d12771] dark:text-white; /* Magenta */
+  }
+}
